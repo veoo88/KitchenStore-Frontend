@@ -819,33 +819,54 @@ function ProductsTab() {
                 ))}</tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                {paginated.map(p => (
-                  <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                    <td className="px-4 py-3 text-gray-400">#{p.id}</td>
-                    <td className="px-4 py-3"><div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden"><img 
-  src={
-    d.product?.image 
-      ? (d.product.image.startsWith('http') ? d.product.image : `${window.location.origin}${d.product.image.replace('/images/', '/img/')}`)
-      : 'https://placehold.co/100x100'
-  } 
-  alt={d.product?.name} 
-  className="w-full h-full object-contain" 
-/></div></td>
-                    <td className="px-4 py-3"><p className="font-semibold text-gray-800 dark:text-gray-200 max-w-[150px] line-clamp-2">{p.name}</p>{p.isFeatured && <span className="text-xs bg-yellow-100 text-yellow-700 px-1 rounded">Nổi bật</span>}</td>
-                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{p.category?.name || '---'}</td>
-                    <td className="px-4 py-3 font-bold text-beige-primary whitespace-nowrap">{formatPrice(p.price)}</td>
-                    <td className="px-4 py-3"><span className={`font-bold ${p.stock <= 5 ? 'text-red-500' : 'text-gray-800 dark:text-gray-200'}`}>{p.stock}</span></td>
-                    <td className="px-4 py-3"><span className={`px-2 py-1 rounded-full text-xs font-bold ${p.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>{p.isActive ? 'Đang bán' : 'Ẩn'}</span></td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-2">
-                        <button onClick={() => openEdit(p)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Sửa"><i className="bx bx-pencil text-lg"></i></button>
-                        <button onClick={() => setDeleteTarget(p.id)} className="p-1.5 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 transition-colors" title="Xóa"><i className="bx bx-trash text-lg"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {filtered.length === 0 && <tr><td colSpan={8} className="text-center py-10 text-gray-400">Không tìm thấy sản phẩm.</td></tr>}
-              </tbody>
+  {paginated.map((p) => ( // Đảm bảo dùng biến p
+    <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+      <td className="px-4 py-3 text-gray-400">#{p.id}</td>
+      <td className="px-4 py-3">
+        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden">
+          <img 
+            src={
+              p.image 
+                ? (p.image.startsWith('http') ? p.image : `${window.location.origin}${p.image.replace('/images/', '/img/')}`)
+                : 'https://placehold.co/100x100'
+            } 
+            alt={p.name} 
+            className="w-full h-full object-cover" // Dùng object-cover để ảnh không bị méo
+          />
+        </div>
+      </td>
+      <td className="px-4 py-3">
+        <p className="font-semibold text-gray-800 dark:text-gray-200 max-w-[150px] line-clamp-2">{p.name}</p>
+        {p.isFeatured && <span className="text-xs bg-yellow-100 text-yellow-700 px-1 rounded">Nổi bật</span>}
+      </td>
+      <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{p.category?.name || '---'}</td>
+      <td className="px-4 py-3 font-bold text-beige-primary whitespace-nowrap">{formatPrice(p.price)}</td>
+      <td className="px-4 py-3">
+        <span className={`font-bold ${p.stock <= 5 ? 'text-red-500' : 'text-gray-800 dark:text-gray-200'}`}>
+          {p.stock}
+        </span>
+      </td>
+      <td className="px-4 py-3">
+        <span className={`px-2 py-1 rounded-full text-xs font-bold ${p.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+          {p.isActive ? 'Đang bán' : 'Ẩn'}
+        </span>
+      </td>
+      <td className="px-4 py-3">
+        <div className="flex gap-2">
+          <button onClick={() => openEdit(p)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
+            <i className="bx bx-pencil text-lg"></i>
+          </button>
+          <button onClick={() => setDeleteTarget(p.id)} className="p-1.5 rounded-lg bg-red-50 text-red-500 hover:bg-red-100">
+            <i className="bx bx-trash text-lg"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  ))}
+  {filtered.length === 0 && (
+    <tr><td colSpan={8} className="text-center py-10 text-gray-400">Không tìm thấy sản phẩm.</td></tr>
+  )}
+</tbody>
             </table>
           </div>
           <Pagination
