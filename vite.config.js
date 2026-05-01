@@ -12,7 +12,7 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/api': {
-        target: 'http://localhost:5256',
+        target: 'https://kitchenstore-backend.onrender.com',
         changeOrigin: true,
         secure: false,
       },
