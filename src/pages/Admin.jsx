@@ -1390,14 +1390,14 @@ function DealsTab() {
     <td className="px-4 py-3">
       <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden">
         <img 
-          src={
-            d.product?.image 
-              ? `${window.location.origin}${d.product.image.replace('/images/', '/img/')}` 
-              : 'https://placehold.co/100x100'
-          } 
-          alt={d.product?.name || "Product"} 
-          className="w-full h-full object-contain" 
-        />
+            src={
+              p.image 
+                ? (p.image.startsWith('http') ? p.image : `${window.location.origin}${p.image.replace('/images/', '/img/')}`)
+                : 'https://placehold.co/100x100'
+            } 
+            alt={p.name} 
+            className="w-full h-full object-cover" // Dùng object-cover để ảnh không bị méo
+          />
       </div>
     </td>
     <td className="px-4 py-3 font-semibold text-gray-800 dark:text-gray-200">
