@@ -138,7 +138,15 @@ export default function Products() {
                   <div key={product.id} className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700 overflow-hidden group">
                     <div className="relative p-4 h-[250px] flex items-center justify-center bg-gray-50/50 dark:bg-gray-800/50">
                       <Link to={`/product/${product.id}`} className="w-full h-full flex items-center justify-center cursor-pointer">
-                        <img src={product.image && !product.image.includes('undefined') ? `http://localhost:5256${product.image}` : "https://placehold.co/300x300?text=Product"} alt={product.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      <img 
+  src={
+    product.image && !product.image.includes('undefined') 
+      ? `https://kitchenstore-backend.onrender.com${product.image}` 
+      : "https://placehold.co/300x300?text=Product"
+  } 
+  alt={product.name} 
+  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" 
+/>
                       </Link>
                     </div>
                     <div className="p-5">
