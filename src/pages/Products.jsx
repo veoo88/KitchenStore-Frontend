@@ -144,11 +144,11 @@ export default function Products() {
     product.image && product.image.startsWith('http') 
       ? product.image 
       : (product.image 
-          ? `${window.location.origin}${product.image.replace('/images/', '/img/')}` 
+          ? `${window.location.origin}${product.image.startsWith('/') ? '' : '/'}${product.image}` 
           : "https://placehold.co/300x300")
   } 
   alt={product.name}
-  className="w-full h-full object-contain"
+  className="w-full h-full object-contain" 
 />
                       </Link>
                     </div>
