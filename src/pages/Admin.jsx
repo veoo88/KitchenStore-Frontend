@@ -1383,56 +1383,58 @@ function DealsTab() {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-              {deals.map(d => (
-  <tr key={d.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-    <td className="px-4 py-3 font-bold text-yellow-500">#{d.position}</td>
-    <td className="px-4 py-3">
-      <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden">
-        <img 
+           <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+  {deals.map((d) => ( // Đảm bảo dùng biến d thống nhất
+    <tr key={d.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+      <td className="px-4 py-3 font-bold text-yellow-500">#{d.position}</td>
+      <td className="px-4 py-3">
+        <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden">
+          <img 
             src={
-              p.image 
-                ? (p.image.startsWith('http') ? p.image : `${window.location.origin}${p.image.replace('/images/', '/img/')}`)
+              d.product?.image 
+                ? (d.product.image.startsWith('http') ? d.product.image : `${window.location.origin}${d.product.image.replace('/images/', '/img/')}`)
                 : 'https://placehold.co/100x100'
             } 
-            alt={p.name} 
-            className="w-full h-full object-cover" // Dùng object-cover để ảnh không bị méo
+            alt={d.product?.name || "Product"} 
+            className="w-full h-full object-cover" 
           />
-      </div>
-    </td>
-    <td className="px-4 py-3 font-semibold text-gray-800 dark:text-gray-200">
-      {d.product?.name}
-    </td>
-    <td className="px-4 py-3 text-gray-400 line-through text-xs">
-      {formatPrice(d.product?.price / (1 - d.discountPercent / 100))}
-    </td>
-    <td className="px-4 py-3">
-      <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-xs font-black">
-        -{d.discountPercent}%
-      </span>
-    </td>
-    <td className="px-4 py-3 font-black text-yellow-600 dark:text-yellow-400">
-      {formatPrice(d.product?.price)}
-    </td>
-    <td className="px-4 py-3">
-      <span className={`px-2 py-1 rounded-full text-xs font-bold ${d.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
-        {d.isActive ? 'Hoạt động' : 'Ẩn'}
-      </span>
-    </td>
-    <td className="px-4 py-3">
-      <div className="flex gap-2">
-        <button onClick={() => openEdit(d)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
-          <i className="bx bx-pencil"></i>
-        </button>
-        <button onClick={() => setDeleteTarget(d.id)} className="p-1.5 rounded-lg bg-red-50 text-red-500 hover:bg-red-100">
-          <i className="bx bx-trash"></i>
-        </button>
-      </div>
-    </td>
-  </tr>
-))}
-              {deals.length === 0 && <tr><td colSpan={8} className="text-center py-10 text-gray-400">Chưa có sản phẩm flash sale nàd.</td></tr>}
-            </tbody>
+        </div>
+      </td>
+      <td className="px-4 py-3 font-semibold text-gray-800 dark:text-gray-200">
+        {d.product?.name}
+      </td>
+      <td className="px-4 py-3 text-gray-400 line-through text-xs">
+        {formatPrice(d.product?.price / (1 - d.discountPercent / 100))}
+      </td>
+      <td className="px-4 py-3">
+        <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-xs font-black">
+          -{d.discountPercent}%
+        </span>
+      </td>
+      <td className="px-4 py-3 font-black text-yellow-600 dark:text-yellow-400">
+        {formatPrice(d.product?.price)}
+      </td>
+      <td className="px-4 py-3">
+        <span className={`px-2 py-1 rounded-full text-xs font-bold ${d.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+          {d.isActive ? 'Hoạt động' : 'Ẩn'}
+        </span>
+      </td>
+      <td className="px-4 py-3">
+        <div className="flex gap-2">
+          <button onClick={() => openEdit(d)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
+            <i className="bx bx-pencil"></i>
+          </button>
+          <button onClick={() => setDeleteTarget(d.id)} className="p-1.5 rounded-lg bg-red-50 text-red-500 hover:bg-red-100">
+            <i className="bx bx-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  ))}
+  {deals.length === 0 && (
+    <tr><td colSpan={8} className="text-center py-10 text-gray-400">Chưa có sản phẩm flash sale nào.</td></tr>
+  )}
+</tbody>
           </table>
         </div>
       )}
