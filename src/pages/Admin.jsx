@@ -508,36 +508,30 @@ const loadStaff = useCallback(async () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                {paginated.map(d => (
-                  <tr key={d.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                    <td className="px-4 py-3 font-bold text-beige-primary">#{d.id}</td>
-                    <td className="px-4 py-3 font-semibold">{d.fullname}</td>
-
-                    {/* CỘT NGƯỜI XỬ LÝ - GIÚP ADMIN GIÁM SÁT NHANH */}
-                    <td className="px-4 py-3">
-                      {o.employeeName ? (
-                        <span className="text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center gap-1">
-                          <i className='bx bxs-user-circle'></i> {o.employeeName}
-                        </span>
-                      ) : (
-                        <span className="text-gray-400 italic text-xs">Chưa ai nhận</span>
-                      )}
-                    </td>
-
-                    <td className="px-4 py-3 font-bold">{formatPrice(o.totalAmount)}</td>
-                    <td className="px-4 py-3"><StatusBadge status={o.status} map={ORDER_STATUS} /></td>
-                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{formatDate(o.createdAt)}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <button onClick={() => setEditOrder(d)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Xem & duyệt đơn">
-                          <i className="bx bx-show text-lg"></i>
-                        </button>
-                        {/* Các nút Hành động khác như Hủy, Hoàn trả... */}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+  {paginated.map((order) => ( // Đặt tên rõ là order
+    <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+      <td className="px-4 py-3 font-bold text-beige-primary">#{order.id}</td>
+      <td className="px-4 py-3 font-semibold">{order.fullname}</td>
+      <td className="px-4 py-3">
+        {order.employeeName ? (
+          <span className="text-blue-600 font-bold text-xs">
+            <i className='bx bxs-user-circle'></i> {order.employeeName}
+          </span>
+        ) : (
+          <span className="text-gray-400 italic text-xs">Chưa ai nhận</span>
+        )}
+      </td>
+      <td className="px-4 py-3 font-bold">{formatPrice(order.totalAmount)}</td>
+      <td className="px-4 py-3"><StatusBadge status={order.status} map={ORDER_STATUS} /></td>
+      <td className="px-4 py-3 text-gray-400">{formatDate(order.createdAt)}</td>
+      <td className="px-4 py-3">
+        <button onClick={() => setEditOrder(order)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
+          <i className="bx bx-show text-lg"></i>
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
             </table>
           </div>
           <Pagination totalItems={filtered.length} itemsPerPage={itemsPerPage} currentPage={currentPage} onPageChange={setCurrentPage} />
@@ -770,8 +764,8 @@ function ProductsTab() {
                   <div className="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
                     <img 
   src={
-    p.image // Dùng p vì vòng lặp là paginated.map(p =>
-      ? `${window.location.origin}${p.image.replace('/images/', '/img/')}` 
+    p.image 
+      ? (p.image.startsWith('http') ? p.image : `${window.location.origin}${p.image.replace('/images/', '/img/')}`)
       : 'https://placehold.co/100x100'
   } 
   alt={p.name} 
@@ -830,11 +824,11 @@ function ProductsTab() {
                     <td className="px-4 py-3 text-gray-400">#{p.id}</td>
                     <td className="px-4 py-3"><div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden"><img 
   src={
-    p.image // Dùng p vì vòng lặp là paginated.map(p =>
-      ? `${window.location.origin}${p.image.replace('/images/', '/img/')}` 
+    d.product?.image 
+      ? (d.product.image.startsWith('http') ? d.product.image : `${window.location.origin}${d.product.image.replace('/images/', '/img/')}`)
       : 'https://placehold.co/100x100'
   } 
-  alt={p.name} 
+  alt={d.product?.name} 
   className="w-full h-full object-contain" 
 /></div></td>
                     <td className="px-4 py-3"><p className="font-semibold text-gray-800 dark:text-gray-200 max-w-[150px] line-clamp-2">{p.name}</p>{p.isFeatured && <span className="text-xs bg-yellow-100 text-yellow-700 px-1 rounded">Nổi bật</span>}</td>
