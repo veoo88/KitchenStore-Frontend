@@ -107,10 +107,16 @@ export default function ProductDetail() {
           <div className="lg:col-span-7">
             <div className="bg-gray-50 dark:bg-gray-800 rounded-[3rem] p-8 md:p-16 flex items-center justify-center shadow-inner relative group min-h-[400px]">
               <img
-                src={product.image && product.image.startsWith('http') ? product.image : (product.image ? `http://localhost:5256${product.image}` : "https://placehold.co/600x600?text=Kitchen+Premium")}
-                className="w-full max-w-[500px] object-contain transform group-hover:scale-105 transition-transform duration-700"
-                alt={product.name}
-              />
+  src={
+    product.image && product.image.startsWith('http') 
+      ? product.image 
+      : (product.image 
+          ? `${window.location.origin}${product.image.replace('/images/', '/img/')}` 
+          : "https://placehold.co/600x600?text=Kitchen+Premium")
+  }
+  className="w-full max-w-[500px] object-contain transform group-hover:scale-105 transition-transform duration-700"
+  alt={product.name}
+/>
               <div className="absolute top-8 right-8">
                 <button className="w-12 h-12 rounded-full bg-white dark:bg-gray-700 shadow-lg flex items-center justify-center text-xl text-gray-400 hover:text-red-500 transition-colors">
                   <i className='bx bx-heart'></i>
@@ -121,7 +127,13 @@ export default function ProductDetail() {
             <div className="grid grid-cols-4 gap-4 mt-6">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="aspect-square rounded-2xl bg-gray-50 dark:bg-gray-800 border-2 border-transparent hover:border-beige-primary cursor-pointer transition-all flex items-center justify-center p-2">
-                  <img src={product.image ? `http://localhost:5256${product.image}` : "https://placehold.co/100x100"} className="w-full h-full object-contain opacity-50 hover:opacity-100" alt="thumbnail" />
+                  <img src={
+                    product.image && product.image.startsWith('http')
+                      ? product.image
+                      : (product.image
+                          ? `${window.location.origin}${product.image.replace('/images/', '/img/')}`
+                          : "https://placehold.co/100x100")
+                  } className="w-full h-full object-contain opacity-50 hover:opacity-100" alt="thumbnail" />
                 </div>
               ))}
             </div>
@@ -356,7 +368,13 @@ export default function ProductDetail() {
                 <Link to={`/product/${p.id}`} key={p.id} className="group">
                   <div className="aspect-square bg-gray-50 dark:bg-gray-800/50 rounded-[2rem] p-6 mb-4 flex items-center justify-center overflow-hidden">
                     <img
-                      src={p.image && p.image.startsWith('http') ? p.image : (p.image ? `http://localhost:5256${p.image}` : "https://placehold.co/300x300?text=Product")}
+                      src={
+                        p.image && p.image.startsWith('http')
+                          ? p.image
+                          : (p.image
+                              ? `${window.location.origin}${p.image.replace('/images/', '/img/')}`
+                              : "https://placehold.co/300x300?text=Product")
+                      }
                       className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-100"
                       alt={p.name}
                     />

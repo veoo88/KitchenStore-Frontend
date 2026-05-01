@@ -97,10 +97,16 @@ export default function Cart() {
                 >
                   <div className="h-40 w-40 shrink-0 overflow-hidden rounded-[2rem] bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-4 transition-transform group-hover:scale-105">
                     <img 
-                      src={item.image && item.image.startsWith('http') ? item.image : (item.image ? `http://localhost:5256${item.image}` : "https://placehold.co/300x300?text=Product")} 
-                      alt={item.name} 
-                      className="h-full w-full object-contain" 
-                    />
+  src={
+    item.image && item.image.startsWith('http') 
+      ? item.image 
+      : (item.image 
+          ? `${window.location.origin}${item.image.replace('/images/', '/img/')}` 
+          : "https://placehold.co/300x300?text=Product")
+  } 
+  alt={item.name} 
+  className="h-full w-full object-contain" 
+/>
                   </div>
 
                   <div className="flex-1 w-full text-center md:text-left">

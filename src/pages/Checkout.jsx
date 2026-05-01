@@ -365,11 +365,17 @@ export default function Checkout() {
                 {cart.map(item => (
                   <div key={item.id} className="flex items-center gap-4 mb-6 group border-b border-white/5 dark:border-black/5 pb-6 last:border-0 last:pb-0">
                     <div className="w-16 h-16 bg-white dark:bg-gray-900 rounded-2xl p-2 shrink-0 border border-white/10 overflow-hidden shadow-lg">
-                      <img
-                        src={item.image && item.image.startsWith('http') ? item.image : (item.image ? `http://localhost:5256${item.image}` : "https://placehold.co/100x100")}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
-                        alt={item.name}
-                      />
+                     <img
+  src={
+    item.image && item.image.startsWith('http') 
+      ? item.image 
+      : (item.image 
+          ? `${window.location.origin}${item.image.replace('/images/', '/img/')}` 
+          : "https://placehold.co/100x100")
+  }
+  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+  alt={item.name}
+/>
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="text-xs font-bold uppercase tracking-tight truncate mb-1">{item.name}</h4>

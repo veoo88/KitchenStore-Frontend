@@ -768,7 +768,15 @@ function ProductsTab() {
                 </label>
                 {form.image && (
                   <div className="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <img src={form.image.startsWith('http') ? form.image : `http://localhost:5256${form.image}`} alt="preview" className="w-16 h-16 object-contain rounded-lg border border-gray-200" />
+                    <img 
+  src={
+    d.product?.image 
+      ? `${window.location.origin}${d.product.image.replace('/images/', '/img/')}` 
+      : 'https://placehold.co/100x100'
+  } 
+  alt={d.product?.name || "Product"} 
+  className="w-full h-full object-contain" 
+/>
                     <div className="flex-1">
                       <p className="text-xs text-gray-500 truncate">{form.image}</p>
                       <button type="button" onClick={() => set('image', '')} className="text-xs text-red-500 hover:underline mt-1">✕ Xóa hình</button>
@@ -820,7 +828,15 @@ function ProductsTab() {
                 {paginated.map(p => (
                   <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
                     <td className="px-4 py-3 text-gray-400">#{p.id}</td>
-                    <td className="px-4 py-3"><div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden"><img src={p.image ? `http://localhost:5256${p.image}` : 'https://placehold.co/100x100?text=No+Img'} alt="" className="w-full h-full object-contain" /></div></td>
+                    <td className="px-4 py-3"><div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden"><img 
+  src={
+    d.product?.image 
+      ? `${window.location.origin}${d.product.image.replace('/images/', '/img/')}` 
+      : 'https://placehold.co/100x100'
+  } 
+  alt={d.product?.name || "Product"} 
+  className="w-full h-full object-contain" 
+/></div></td>
                     <td className="px-4 py-3"><p className="font-semibold text-gray-800 dark:text-gray-200 max-w-[150px] line-clamp-2">{p.name}</p>{p.isFeatured && <span className="text-xs bg-yellow-100 text-yellow-700 px-1 rounded">Nổi bật</span>}</td>
                     <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{p.category?.name || '---'}</td>
                     <td className="px-4 py-3 font-bold text-beige-primary whitespace-nowrap">{formatPrice(p.price)}</td>
@@ -1357,7 +1373,23 @@ function DealsTab() {
                   <td className="px-4 py-3 font-bold text-yellow-500">#{d.position}</td>
                   <td className="px-4 py-3">
                     <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden">
-                      <img src={d.product?.image ? `http://localhost:5256${d.product.image}` : 'https://placehold.co/100x100'} alt="" className="w-full h-full object-contain" />
+                     <img 
+  src={
+    d.product?.image 
+      ? `${window.location.origin}${d.product.image.replace('/images/', '/img/')}` 
+      : 'https://placehold.co/100x100'
+  } 
+  alt={d.product?.name || "Product"} 
+  className="w-full h-full object-contain" 
+/> <img 
+  src={
+    d.product?.image 
+      ? `${window.location.origin}${d.product.image.replace('/images/', '/img/')}` 
+      : 'https://placehold.co/100x100'
+  } 
+  alt={d.product?.name || "Product"} 
+  className="w-full h-full object-contain" 
+/>
                     </div>
                   </td>
                   <td className="px-4 py-3 font-semibold text-gray-800 dark:text-gray-200">{d.product?.name}</td>

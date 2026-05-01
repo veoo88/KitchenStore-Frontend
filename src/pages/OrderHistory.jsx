@@ -190,11 +190,17 @@ export default function OrderHistory() {
                     {order.orderItems?.map(item => (
                       <div key={item.id} className="flex gap-6 items-start">
                         <div className="w-24 h-24 bg-gray-50 dark:bg-gray-800 rounded-2xl p-3 shrink-0 border border-gray-100 dark:border-gray-700">
-                          <img
-                            src={item.productImage && item.productImage.startsWith('http') ? item.productImage : (item.productImage ? `http://localhost:5256${item.productImage}` : "https://placehold.co/100x100")}
-                            className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal"
-                            alt={item.productName}
-                          />
+                         <img
+  src={
+    item.productImage && item.productImage.startsWith('http') 
+      ? item.productImage 
+      : (item.productImage 
+          ? `${window.location.origin}${item.productImage.replace('/images/', '/img/')}` 
+          : "https://placehold.co/100x100")
+  }
+  className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal"
+  alt={item.productName}
+/>
                         </div>
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-black text-gray-900 dark:text-gray-100 uppercase tracking-tight line-clamp-2 mb-1">{item.productName}</h4>
@@ -343,7 +349,13 @@ export default function OrderHistory() {
                       <div key={item.id} className="flex gap-4 items-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
                         <div className="w-16 h-16 bg-white dark:bg-gray-900 rounded-xl p-2 shrink-0 overflow-hidden border border-gray-100 dark:border-gray-800">
                           <img
-                            src={item.productImage && item.productImage.startsWith('http') ? item.productImage : (item.productImage ? `http://localhost:5256${item.productImage}` : "https://placehold.co/100x100")}
+                            src={
+                              item.productImage && item.productImage.startsWith('http')
+                                ? item.productImage
+                                : (item.productImage
+                                    ? `${window.location.origin}${item.productImage.replace('/images/', '/img/')}`
+                                    : "https://placehold.co/100x100")
+                            }
                             className="w-full h-full object-contain"
                             alt={item.productName}
                           />

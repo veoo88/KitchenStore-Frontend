@@ -186,7 +186,17 @@ export default function Home() {
                 <div className="relative aspect-square mb-6 overflow-hidden rounded-2xl bg-white/5 flex items-center justify-center p-4">
                   <span className="absolute top-3 left-3 bg-white text-black text-[10px] font-black px-2 py-1 rounded uppercase z-10">Tiết kiệm {formatPrice(originalPrice - prod.price)}</span>
                   <Link to={`/product/${prod.id}`} className="w-full h-full flex items-center justify-center">
-                    <img src={prod.image && (prod.image.startsWith('http')) ? prod.image : (prod.image ? `http://localhost:5256${prod.image}` : "https://placehold.co/300x300?text=Kitchen")} alt={prod.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
+                    <img 
+  src={
+    prod.image && prod.image.startsWith('http') 
+      ? prod.image 
+      : (prod.image 
+          ? `${window.location.origin}${prod.image.replace('/images/', '/img/')}` 
+          : "https://placehold.co/300x300?text=Kitchen")
+  } 
+  alt={prod.name} 
+  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" 
+/>
                   </Link>
                 </div>
                 <h3 className="text-white font-bold text-sm mb-4 line-clamp-2 min-h-[40px] leading-snug tracking-tight opacity-90 group-hover:opacity-100 transition-opacity">
@@ -231,10 +241,16 @@ export default function Home() {
               <Link key={cat.id} to={`/products?category=${encodeURIComponent(cat.name)}`} className="group" data-aos="fade-up" data-aos-delay={idx * 50}>
                  <div className="relative overflow-hidden rounded-[2rem] aspect-square shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-500 bg-gray-50 dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700 flex items-center justify-center p-6">
                     <img 
-                      src={cat.displayImage && cat.displayImage.startsWith('http') ? cat.displayImage : (cat.displayImage ? `http://localhost:5256${cat.displayImage}` : getCategoryBg(cat.name))} 
-                      alt={cat.name} 
-                      className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500 drop-shadow-xl" 
-                    />
+  src={
+    cat.displayImage && cat.displayImage.startsWith('http') 
+      ? cat.displayImage 
+      : (cat.displayImage 
+          ? `${window.location.origin}${cat.displayImage.replace('/images/', '/img/')}` 
+          : getCategoryBg(cat.name))
+  } 
+  alt={cat.name} 
+  className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500 drop-shadow-xl" 
+/>
                  </div>
                  <h3 className="mt-4 text-center font-black text-sm uppercase tracking-widest text-gray-700 dark:text-gray-300 group-hover:text-beige-primary transition-colors">{cat.name}</h3>
               </Link>
@@ -270,7 +286,17 @@ export default function Home() {
                       {product.isFeatured && <span className="bg-beige-primary text-white text-[9px] font-black uppercase px-2 py-1.5 leading-none rounded drop-shadow-md">Editor's Choice</span>}
                    </div>
                    <Link to={`/product/${product.id}`} className="w-full h-full flex items-center justify-center z-10 cursor-pointer">
-                    <img src={product.image && (product.image.startsWith('http')) ? product.image : (product.image ? `http://localhost:5256${product.image}` : "https://placehold.co/300x300?text=Equip")} alt={product.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
+                    <img 
+  src={
+    product.image && product.image.startsWith('http') 
+      ? product.image 
+      : (product.image 
+          ? `${window.location.origin}${product.image.replace('/images/', '/img/')}` 
+          : "https://placehold.co/300x300?text=Equip")
+  } 
+  alt={product.name} 
+  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" 
+/>
                    </Link>
                 </div>
                 
