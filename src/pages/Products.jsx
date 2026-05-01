@@ -141,11 +141,11 @@ export default function Products() {
                       <img 
   src={
     product.image && !product.image.includes('undefined') 
-      ? `https://kitchenstore-backend.onrender.com${product.image}` 
+      ? `${window.location.origin}${product.image}` // Lấy ảnh từ chính domain đang chạy (Vercel)
       : "https://placehold.co/300x300?text=Product"
   } 
   alt={product.name} 
-  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" 
+  className="w-full h-full object-contain" 
 />
                       </Link>
                     </div>
