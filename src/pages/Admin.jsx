@@ -240,19 +240,19 @@ function DashboardTab({ stats, loading }) {
             </h3>
             <div className="space-y-4">
               {(stats.recentOrders || []).map((o) => (
-                <div key={o.id} className="group flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all border border-transparent hover:border-gray-100 dark:hover:border-gray-700">
+                <div key={d.id} className="group flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all border border-transparent hover:border-gray-100 dark:hover:border-gray-700">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-beige-light dark:bg-gray-700 flex items-center justify-center text-beige-primary font-bold">
-                      #{o.id.toString().slice(-2)}
+                      #{d.id.toString().slice(-2)}
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800 dark:text-gray-200 text-sm">{o.fullname}</p>
-                      <p className="text-[10px] text-gray-400 uppercase tracking-tighter">{formatDate(o.createdAt)}</p>
+                      <p className="font-bold text-gray-800 dark:text-gray-200 text-sm">{d.fullname}</p>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-tighter">{formatDate(d.createdAt)}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-black text-beige-primary text-sm">{formatPrice(o.totalAmount)}</p>
-                    <StatusBadge status={o.status} map={ORDER_STATUS} />
+                    <p className="font-black text-beige-primary text-sm">{formatPrice(d.totalAmount)}</p>
+                    <StatusBadge status={d.status} map={ORDER_STATUS} />
                   </div>
                 </div>
               ))}
@@ -336,7 +336,7 @@ const loadStaff = useCallback(async () => {
       // Tìm tên nhân viên vừa gán để cập nhật UI ngay lập tức
       const staffMember = staffList.find(s => s.id === empId);
       
-      setOrders(prev => prev.map(o => o.id === orderId ? { 
+      setOrders(prev => prev.map(o => d.id === orderId ? { 
         ...o, 
         employeeId: empId,
         employeeName: staffMember ? staffMember.fullname : null 
@@ -360,7 +360,7 @@ const loadStaff = useCallback(async () => {
     setUpdating(id);
     try {
       await api.put('/orders', { id, status });
-      setOrders(prev => prev.map(o => o.id === id ? { ...o, status } : o));
+      setOrders(prev => prev.map(o => d.id === id ? { ...o, status } : o));
       setEditOrder(prev => prev?.id === id ? { ...prev, status } : prev);
     } catch (e) { Swal.fire('Lỗi', 'Cập nhật thất bại', 'error'); }
     finally { setUpdating(null); }
@@ -378,7 +378,7 @@ const loadStaff = useCallback(async () => {
     setUpdating(id);
     try {
       await api.put('/orders', { id, status: 'cancelled' });
-      setOrders(prev => prev.map(o => o.id === id ? { ...o, status: 'cancelled' } : o));
+      setOrders(prev => prev.map(o => d.id === id ? { ...o, status: 'cancelled' } : o));
       setEditOrder(prev => prev?.id === id ? { ...prev, status: 'cancelled' } : prev);
       Swal.fire('Thành công', 'Đã hủy đơn hàng.', 'success');
     } catch (e) { Swal.fire('Lỗi', 'Hủy đơn thất bại', 'error'); }
@@ -396,7 +396,7 @@ const loadStaff = useCallback(async () => {
     setUpdating(id);
     try {
       await api.put('/orders', { id, status: 'refunded', paymentStatus: 'refunded' });
-      setOrders(prev => prev.map(o => o.id === id ? { ...o, status: 'refunded', paymentStatus: 'refunded' } : o));
+      setOrders(prev => prev.map(o => d.id === id ? { ...o, status: 'refunded', paymentStatus: 'refunded' } : o));
       setEditOrder(prev => prev?.id === id ? { ...prev, status: 'refunded', paymentStatus: 'refunded' } : prev);
       Swal.fire('Thành công', 'Đã hoàn trả đơn hàng.', 'success');
     } catch (e) { Swal.fire('Lỗi', 'Hoàn trả thất bại', 'error'); }
@@ -406,13 +406,13 @@ const loadStaff = useCallback(async () => {
   const deleteOrder = async () => {
     try {
       await api.delete('/orders', { data: { id: deleteTarget } });
-      setOrders(prev => prev.filter(o => o.id !== deleteTarget));
+      setOrders(prev => prev.filter(o => d.id !== deleteTarget));
       setDeleteTarget(null);
     } catch (e) { setDeleteTarget(null); }
   };
 
   const NEXT = { pending: 'processing', processing: 'shipped', shipped: 'delivered' };
-  const filtered = filter === 'all' ? orders : orders.filter(o => o.status === filter);
+  const filtered = filter === 'all' ? orders : orders.filter(o => d.status === filter);
   const paginated = filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
@@ -508,25 +508,25 @@ const loadStaff = useCallback(async () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                {paginated.map(o => (
-                  <tr key={o.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                    <td className="px-4 py-3 font-bold text-beige-primary">#{o.id}</td>
-                    <td className="px-4 py-3 font-semibold">{o.fullname}</td>
+                {paginated.map(d => (
+                  <tr key={d.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                    <td className="px-4 py-3 font-bold text-beige-primary">#{d.id}</td>
+                    <td className="px-4 py-3 font-semibold">{d.fullname}</td>
                     
                     {/* CỘT NGƯỜI XỬ LÝ - GIÚP ADMIN GIÁM SÁT NHANH */}
                     <td className="px-4 py-3">
-                      {o.employeeName ? (
+                      {d.employeeName ? (
                         <span className="text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center gap-1">
-                          <i className='bx bxs-user-circle'></i> {o.employeeName}
+                          <i className='bx bxs-user-circle'></i> {d.employeeName}
                         </span>
                       ) : (
                         <span className="text-gray-400 italic text-xs">Chưa ai nhận</span>
                       )}
                     </td>
 
-                    <td className="px-4 py-3 font-bold">{formatPrice(o.totalAmount)}</td>
-                    <td className="px-4 py-3"><StatusBadge status={o.status} map={ORDER_STATUS} /></td>
-                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{formatDate(o.createdAt)}</td>
+                    <td className="px-4 py-3 font-bold">{formatPrice(d.totalAmount)}</td>
+                    <td className="px-4 py-3"><StatusBadge status={d.status} map={ORDER_STATUS} /></td>
+                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{formatDate(d.createdAt)}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button onClick={() => setEditOrder(o)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Xem & duyệt đơn">
@@ -1187,11 +1187,11 @@ function RevenueTab() {
     }).catch(() => setOrders([])).finally(() => setLoading(false));
   }, []);
 
-  const totalRevenue = orders.reduce((s, o) => s + (o.totalAmount || 0), 0);
+  const totalRevenue = orders.reduce((s, o) => s + (d.totalAmount || 0), 0);
   const monthlyRevenue = orders.filter(o => {
-    const d = new Date(o.createdAt), n = new Date();
+    const d = new Date(d.createdAt), n = new Date();
     return d.getMonth() === n.getMonth() && d.getFullYear() === n.getFullYear();
-  }).reduce((s, o) => s + (o.totalAmount || 0), 0);
+  }).reduce((s, o) => s + (d.totalAmount || 0), 0);
 
   return (
     <div className="space-y-6">
@@ -1212,12 +1212,12 @@ function RevenueTab() {
               </tr></thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                 {orders.slice(0, 100).map(o => (
-                  <tr key={o.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                    <td className="px-4 py-3 font-bold text-beige-primary">#{o.id}</td>
-                    <td className="px-4 py-3"><p className="font-semibold text-gray-800 dark:text-gray-200">{o.fullname}</p><p className="text-xs text-gray-400">{o.email}</p></td>
-                    <td className="px-4 py-3"><span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-lg text-xs font-bold uppercase">{o.paymentMethod}</span></td>
-                    <td className="px-4 py-3 font-black text-emerald-600">{formatPrice(o.totalAmount)}</td>
-                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{formatDate(o.createdAt)}</td>
+                  <tr key={d.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                    <td className="px-4 py-3 font-bold text-beige-primary">#{d.id}</td>
+                    <td className="px-4 py-3"><p className="font-semibold text-gray-800 dark:text-gray-200">{d.fullname}</p><p className="text-xs text-gray-400">{d.email}</p></td>
+                    <td className="px-4 py-3"><span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-lg text-xs font-bold uppercase">{d.paymentMethod}</span></td>
+                    <td className="px-4 py-3 font-black text-emerald-600">{formatPrice(d.totalAmount)}</td>
+                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{formatDate(d.createdAt)}</td>
                   </tr>
                 ))}
                 {orders.length === 0 && <tr><td colSpan={5} className="text-center py-10 text-gray-400">Chưa có đơn được thanh toán.</td></tr>}
@@ -1409,7 +1409,7 @@ function DealsTab() {
                   </td>
                 </tr>
               ))}
-              {deals.length === 0 && <tr><td colSpan={8} className="text-center py-10 text-gray-400">Chưa có sản phẩm flash sale nào.</td></tr>}
+              {deals.length === 0 && <tr><td colSpan={8} className="text-center py-10 text-gray-400">Chưa có sản phẩm flash sale nàd.</td></tr>}
             </tbody>
           </table>
         </div>
