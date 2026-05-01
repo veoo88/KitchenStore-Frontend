@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-beige-primary: #D7CCC8;
+  --color-beige-secondary: #E0C9A6;
+  --color-beige-bg: #FBF8F5;
+  --color-beige-text: #3E2723;
+  --color-beige-dark: #8D6E63;
+  --font-sans: "Roboto", "sans-serif";
+}
+
+@variant dark (&:is(.dark, .dark *));
+
+@layer components {
+  .glass-effect {
+    background: rgba(251, 248, 245, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(215, 204, 200, 0.4);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+  .dark .glass-effect {
+    background: rgba(31, 41, 55, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Global Dark Mode Fixes */
+  .dark input[type="text"], 
+  .dark input[type="email"], 
+  .dark input[type="password"], 
+  .dark textarea,
+  .dark select {
+    background-color: #1F2937 !important; /* gray-800 */
+    color: #F3F4F6 !important; /* gray-100 */
+    border-color: #374151 !important; /* gray-700 */
+  }
+
+  .dark .product-title a,
+  .dark .product-title {
+    color: #F3F4F6 !important; /* gray-100 */
+  }
+
+  .dark .btn-cat-filter {
+    background-color: #374151 !important; /* gray-700 */
+    color: #F3F4F6 !important; /* gray-100 */
+    border-color: #4B5563 !important; /* gray-600 */
+  }
+}
+
+body {
+  @apply bg-beige-bg text-beige-text dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300;
+}
