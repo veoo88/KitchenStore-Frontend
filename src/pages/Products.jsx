@@ -138,14 +138,17 @@ export default function Products() {
                   <div key={product.id} className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700 overflow-hidden group">
                     <div className="relative p-4 h-[250px] flex items-center justify-center bg-gray-50/50 dark:bg-gray-800/50">
                       <Link to={`/product/${product.id}`} className="w-full h-full flex items-center justify-center cursor-pointer">
-                      <img 
+                     
+<img 
   src={
-    product.image && !product.image.includes('undefined') 
-      ? `${window.location.origin}${product.image}` // Lấy ảnh từ chính domain đang chạy (Vercel)
-      : "https://placehold.co/300x300?text=Product"
+    product.image && product.image.startsWith('http') 
+      ? product.image 
+      : (product.image 
+          ? `${window.location.origin}${product.image.replace('/images/', '/img/')}` 
+          : "https://placehold.co/300x300")
   } 
-  alt={product.name} 
-  className="w-full h-full object-contain" 
+  alt={product.name}
+  className="w-full h-full object-contain"
 />
                       </Link>
                     </div>
