@@ -190,7 +190,6 @@ export default function OrderHistory() {
                     {order.orderItems?.map(item => (
                       <div key={item.id} className="flex gap-6 items-start">
                         <div className="w-24 h-24 bg-gray-50 dark:bg-gray-800 rounded-2xl p-3 shrink-0 border border-gray-100 dark:border-gray-700">
-                         // Logic này sẽ "gọt" bỏ mọi đường dẫn sai và ép về thư mục /img/
                           <img 
                             src={
                               item.productImage 
@@ -347,7 +346,6 @@ export default function OrderHistory() {
                     {selectedOrder.orderItems?.map(item => (
                       <div key={item.id} className="flex gap-4 items-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
                         <div className="w-16 h-16 bg-white dark:bg-gray-900 rounded-xl p-2 shrink-0 overflow-hidden border border-gray-100 dark:border-gray-800">
-                          // Logic này sẽ "gọt" bỏ mọi đường dẫn sai và ép về thư mục /img/
                           <img 
                             src={
                               item.productImage 
