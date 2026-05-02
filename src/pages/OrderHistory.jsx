@@ -192,10 +192,10 @@ export default function OrderHistory() {
                         <div className="w-24 h-24 bg-gray-50 dark:bg-gray-800 rounded-2xl p-3 shrink-0 border border-gray-100 dark:border-gray-700">
                           <img 
                             src={
-                                d.product?.image 
-                                  ? (d.product.image.startsWith('http') ? d.product.image : `${window.location.origin}${d.product.image.replace('/images/', '/img/')}`)
-                                  : 'https://placehold.co/100x100'
-                              } 
+                              item.productImage 
+                                ? `/img/${item.productImage.split('/').pop()}` 
+                                : "/img/default-product.jpg"
+                            }
                             className="w-full h-full object-contain"
                             alt={item.productName}
                           />
@@ -347,15 +347,14 @@ export default function OrderHistory() {
                       <div key={item.id} className="flex gap-4 items-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
                         <div className="w-16 h-16 bg-white dark:bg-gray-900 rounded-xl p-2 shrink-0 overflow-hidden border border-gray-100 dark:border-gray-800">
                           <img 
-                            src={
-                                d.product?.image 
-                                  ? (d.product.image.startsWith('http') ? d.product.image : `${window.location.origin}${d.product.image.replace('/images/', '/img/')}`)
-                                  : 'https://placehold.co/100x100'
-                              } 
-                            className="w-full h-full object-contain"
-                            alt={item.productName}
-                          />
-                          
+                              src={
+                                item.productImage 
+                                  ? `/img/${item.productImage.split('/').pop()}` 
+                                  : "/img/default-product.jpg"
+                              }
+                              className="w-full h-full object-contain"
+                              alt={item.productName}
+                            />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h5 className="text-xs font-bold text-gray-900 dark:text-gray-100 uppercase tracking-tight line-clamp-1">{item.productName}</h5>
