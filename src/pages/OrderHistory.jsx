@@ -192,10 +192,10 @@ export default function OrderHistory() {
                         <div className="w-24 h-24 bg-gray-50 dark:bg-gray-800 rounded-2xl p-3 shrink-0 border border-gray-100 dark:border-gray-700">
                           <img 
                             src={
-                              item.productImage 
-                                ? `/img/${item.productImage.split('/').pop()}` 
-                                : "/img/default-product.jpg"
-                            }
+                                item.productImage 
+                                  ? `/img/${item.productImage.split(/[\\/]/).pop()}` 
+                                  : "/img/default-product.jpg"
+                              }
                             className="w-full h-full object-contain"
                             alt={item.productName}
                           />
@@ -348,10 +348,10 @@ export default function OrderHistory() {
                         <div className="w-16 h-16 bg-white dark:bg-gray-900 rounded-xl p-2 shrink-0 overflow-hidden border border-gray-100 dark:border-gray-800">
                           <img 
                               src={
-                                item.productImage 
-                                  ? `/img/${item.productImage.split('/').pop()}` 
-                                  : "/img/default-product.jpg"
-                              }
+                                  item.productImage 
+                                    ? `/img/${item.productImage.split(/[\\/]/).pop()}` 
+                                    : "/img/default-product.jpg"
+                                }
                               className="w-full h-full object-contain"
                               alt={item.productName}
                             />
